@@ -127,12 +127,25 @@ public class LinkedList<E> implements Iterator<E>
 	 */
 	public void insert(E data)
 	{
-		Node<E> node = new Node<E>(data, current.getNext(), current);
-		current.setNext(node);
+		Node<E> node;
+		
+		try
+		{
+			node = new Node<E>(data, current.getNext(), current);
+			current.setNext(node);
+		}
+		catch(NullPointerException e)
+		{
+			// no current? hence an empty list
+			node = new Node<E>(data, null, null);
+			head = node;
+		}
+		
 		try
 		{
 			current.getNext().setPrevious(node);
-		} catch (NullPointerException e)
+		}
+		catch (NullPointerException e)
 		{
 			// dear boy is the last node
 		}
