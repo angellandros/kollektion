@@ -43,6 +43,34 @@ public class LinkedList<E> implements Iterator<E>
 
 		restart();
 	}
+	
+	public LinkedList(Iterator<E> c)
+	{
+		Node<E> last = null;
+
+		while (c.hasNext())
+		{
+			E e = c.next();
+			
+			if (last == null)
+			{
+				head = new Node<E>(e, null, null);
+				last = head;
+			} else
+			{
+				Node<E> current = new Node<E>(e, null, last);
+				last.setNext(current);
+				last = current;
+			}
+		}
+
+		restart();
+	}
+	
+	public LinkedList<E> clone()
+	{
+		return new LinkedList<E>(this);
+	}
 
 	@Override
 	public boolean hasNext()
